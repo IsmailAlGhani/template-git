@@ -1,5 +1,5 @@
 {
-  "appId": "io.ionic.starter",
+  "appId": "com.ionic_git_template.ionic_angular",
   "appName": "ionic-git-tutorial",
   "bundledWebRuntime": false,
   "npmClient": "npm",
@@ -9,5 +9,10 @@
       "launchShowDuration": 0
     }
   },
-  "cordova": {}
+  "cordova": {
+    "preferences": {
+      "GOOGLE_MAPS_ANDROID_API_KEY": "",
+      "GOOGLE_MAPS_IOS_API_KEY": ""
+    }
+  }
 }
