@@ -51,5 +51,13 @@
         </ion-card>
       </ion-col>
     </ion-row>
+    <ion-row *ngIf="fingerAvailable">
+      <ion-col size="12">
+        <ion-button (click)="showFingerprintLoad()" expand="block" color="secondary" shape="round">
+          <ion-icon slot="end" name="scan"></ion-icon>
+          Biometric Authenticate
+        </ion-button>
+      </ion-col>
+    </ion-row>
   </ion-grid>
 </ion-content>

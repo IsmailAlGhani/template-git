@@ -27,8 +27,8 @@ export class GoogleMapsComponent implements OnInit {
     private platform: Platform
   ) {}
 
-  ngOnInit() {
-    this.platform.ready();
+  async ngOnInit() {
+    await this.platform.ready();
     this.loadMap();
   }
 
@@ -43,15 +43,14 @@ export class GoogleMapsComponent implements OnInit {
       //   tilt: 30
       // }
     });
-    console.log(JSON.stringify({nama: "Ismail Al Ghani"}, null ,1));
+    
     this.goToMyLocation();
   }
 
   goToMyLocation(){
     this.map.clear();
 
-    this.map.getMyLocation().then((location: MyLocation) => {
-      console.log(location);
+    this.map.getMyLocation({ enableHighAccuracy: true }).then((location: MyLocation) => {
       console.log(JSON.stringify(location, null ,2));
 
       this.map.animateCamera({

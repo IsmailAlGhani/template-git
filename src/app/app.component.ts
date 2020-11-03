@@ -77,12 +77,14 @@ export class AppComponent {
     });
   }
 
+
   logout() {
     if(typeof(Storage) !== 'undefined'){
       if(localStorage.getItem('Token') !== null)
       {
         this.menuCtrl.enable(false);
-        localStorage.removeItem('Token')
+        localStorage.removeItem('User');
+        localStorage.removeItem('Token');
       }
     }
     this.router.navigate(['/'])

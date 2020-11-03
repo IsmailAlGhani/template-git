@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { AlertController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +12,39 @@ export class MethodService {
 
   constructor(
     private http: HttpClient,
+    private alertCtrl: AlertController
   ) {}
+
+  async presentAlert(title: string,info: string) {
+    const alert = await this.alertCtrl.create({
+      header: 'Alert',
+      subHeader: title,
+      message: info,
+      buttons: ['OK']
+    });
+  
+    await alert.present();
+  }
+
+  fingerAlert(title: string,err: any) {
+    var description;
+    switch (err.code) {
+      case -101:
+        description = "Silahkan login menggunakan email"
+      case -111:
+        description = "Silahkan coba beberapa saat lagi"
+      case -112:
+        description = "Terlalu banyak salah. fingerprint tidak dapat digunakan"
+      default:
+    }
+    if (description) {
+      this.presentAlert(title, description);
+    }
+  }
 
   postUrlApi(urlApi, token, callback, params?) {
     const accessToken = localStorage.getItem("Token")
-    const head = (accessToken ? "Bearer " + accessToken : localStorage.getItem("Auth"));
+    const head = (urlApi === 'oauth/token' ? localStorage.getItem("Auth") : "Bearer " + accessToken);
     this.headers = this.headers.set("Authorization", head);
     
     if (params == null || params == '') {
@@ -24,8 +53,18 @@ export class MethodService {
         .subscribe((data) => {
           callback(data);
         }, err => {
-          console.log(err);
-          callback('ERROR');
+          var info;
+          switch (err.status) {
+            case 400:
+              localStorage.setItem('fingerRegist', 'false');
+              info = "Silahkan login menggunakan email";
+            default:
+              info = err.error.error_description;
+          }
+          this.presentAlert("Alert",info);
+          console.log(JSON.stringify(err, null, 2));
+          console.log(err.status);
+          callback('Error');
         }
       );
     } else {
@@ -34,8 +73,18 @@ export class MethodService {
         .subscribe((data) => {
           callback(data);
         }, err => {
-          console.log(err);
-          callback('ERROR');
+          var info;
+          switch (err.status) {
+            case 400:
+              localStorage.setItem('fingerRegist', 'false');
+              info = "Silahkan login menggunakan email";
+            default:
+              info = err.error.error_description;
+          }
+          this.presentAlert("Alert",info);
+          console.log(JSON.stringify(err, null, 2));
+          console.log(err.status);
+          callback('Error');
         }
       );
     } 
@@ -43,7 +92,7 @@ export class MethodService {
 
   getUrlApi(urlApi, token, callback, params?) {
     const accessToken = localStorage.getItem("Token")
-    const head = (accessToken ? "Bearer " + accessToken : localStorage.getItem("Auth"));
+    const head = (urlApi === 'oauth/token' ? localStorage.getItem("Auth") : "Bearer " + accessToken);
     this.headers = this.headers.set("Authorization", head);
 
     if (params == null || params == '') {
@@ -51,8 +100,18 @@ export class MethodService {
         .subscribe((data) => {
           callback(data);
         }, err => {
-          console.log(err);
-          callback('ERROR');
+          var info;
+          switch (err.status) {
+            case 400:
+              localStorage.setItem('fingerRegist', 'false');
+              info = "Silahkan login menggunakan email";
+            default:
+              info = err.error.error_description;
+          }
+          this.presentAlert("Alert",info);
+          console.log(JSON.stringify(err, null, 2));
+          console.log(err.status);
+          callback('Error');
         }
       );
     } else {
@@ -60,8 +119,18 @@ export class MethodService {
         .subscribe((data) => {
           callback(data);
         }, err => {
-          console.log(err);
-          callback('ERROR');
+          var info;
+          switch (err.status) {
+            case 400:
+              localStorage.setItem('fingerRegist', 'false');
+              info = "Silahkan login menggunakan email";
+            default:
+              info = err.error.error_description;
+          }
+          this.presentAlert("Alert",info);
+          console.log(JSON.stringify(err, null, 2));
+          console.log(err.status);
+          callback('Error');
         }
       );
     }

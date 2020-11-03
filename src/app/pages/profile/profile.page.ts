@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Camera, CameraResultType, Geolocation } from '@capacitor/core';
+import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
 
 @Component({
   selector: 'app-profile',
@@ -7,32 +7,33 @@ import { Camera, CameraResultType, Geolocation } from '@capacitor/core';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit, OnDestroy {
+  user: object;
+  name: string;
+  company: string;
+  fingerAvailable: boolean;
   
-  constructor() {}
+  constructor(private fingerAuth: FingerprintAIO) {
+    this.user = JSON.parse(localStorage.getItem('User'));
+    for (const key in this.user) {
+      if (key == 'employee') {
+        this.name = this.user[key].name;
+        this.company = this.user[key].legalEntityName;
+      }
+    }
+  }
 
   ngOnInit() {
-    this.getCurrentPosition();
+    this.fingerAuth.isAvailable().then(() => {
+      if (localStorage.getItem("fingerRegist") == "true") {
+        this.fingerAvailable = false;
+      } else {
+        this.fingerAvailable = true;
+      }
+    }).catch(() => {
+      this.fingerAvailable = false;
+    })
   }
 
   ngOnDestroy() {}
 
-  async takePicture() {
-    const image = await Camera.getPhoto({
-      quality: 90,
-      allowEditing: true,
-      resultType: CameraResultType.Uri
-    });
-    // image.webPath will contain a path that can be set as an image src.
-    // You can access the original file using image.path, which can be
-    // passed to the Filesystem API to read the raw data of the image,
-    // if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
-    var imageUrl = image.webPath;
-    // Can be set to the src of an image now
-    console.log(imageUrl);
-  }
-
-  async getCurrentPosition() {
-    const coordinates = await Geolocation.getCurrentPosition();
-    console.log(JSON.stringify(coordinates,null,1));
-  }
 }
