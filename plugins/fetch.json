@@ -47,14 +47,6 @@
     "is_top_level": true,
     "variables": {}
   },
-  "cordova-plugin-googlemaps": {
-    "source": {
-      "type": "registry",
-      "id": "git+https://github.com/mapsplugin/cordova-plugin-googlemaps.git#multiple_maps"
-    },
-    "is_top_level": true,
-    "variables": {}
-  },
   "cordova-plugin-fingerprint-aio": {
     "source": {
       "type": "registry",

@@ -4,7 +4,6 @@ import { MenuController, Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
-import { Environment } from '@ionic-native/google-maps';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -68,10 +67,6 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      Environment.setEnv({
-        'API_KEY_FOR_BROWSER_RELEASE': environment.googleMapsAPIKey,
-        'API_KEY_FOR_BROWSER_DEBUG': environment.googleMapsAPIKey  // optional
-      });
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
