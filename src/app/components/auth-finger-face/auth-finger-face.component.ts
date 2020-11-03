@@ -16,6 +16,15 @@ export class AuthFingerFaceComponent implements OnInit {
   }
 
   ngOnInit() {}
+
+  activateFingerprint() {
+    if (localStorage.getItem("fingerRegist") == "true") {
+      this.method.presentAlert("Alert","You have registered");
+    } else {
+      this.method.presentAlert("Success","Biometric Activate!");
+      localStorage.setItem("fingerRegist","true");
+    }
+  }
   
   showFingerprintAuthentication() {
 

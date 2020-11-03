@@ -107,4 +107,46 @@ export class LoginPage implements OnInit {
       this.methodService.fingerAlert("Alert", err);
     });
   }
+
+  showFingerprintAuthentication() {
+    const urlApi = "oauth/token";
+    const apiProfile = "api/user/profile";
+    const ref_token = localStorage.getItem('refToken');
+    this.params = this.params.set("grant_type", "refresh_token").set("refresh_token", ref_token);
+    
+    this.fingerAuth.isAvailable().then((result) => {
+      this.fingerAuth.show({
+        description: "Biometric Authentication",
+        cancelButtonTitle: 'Cancel',
+        disableBackup: true,
+      }).then((show) => {
+        console.log(JSON.stringify(show, null, 2));
+
+        this.methodService.postUrlApi(urlApi, localStorage.getItem('Token'), (callback) => {
+          if (callback != 'Error') {
+            localStorage.setItem('Token', callback.access_token);
+            localStorage.setItem('refToken', callback.refresh_token);
+            console.log(JSON.stringify(callback, null, 2));
+            this.methodService.presentAlert("Success","Successfully Authenticated!");
+      
+            this.methodService.getUrlApi(apiProfile, localStorage.getItem('Token'), (result) => {
+              if (result != 'Error') {
+                console.log(JSON.stringify(result, null, 2));
+                localStorage.setItem('User', JSON.stringify(result, null, 2));
+                this.menuController.enable(true);
+                this.navController.navigateRoot('profile');
+              }
+            })
+          }
+        }, 
+        this.params);
+      }).catch((error) => {
+        console.log(JSON.stringify(error, null, 2));
+        this.methodService.fingerAlert("Alert", error);
+      })
+    }).catch((err) => {
+      console.log(JSON.stringify(err, null, 2));
+      this.methodService.fingerAlert("Alert", err);
+    });
+  }
 }

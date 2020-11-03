@@ -28,12 +28,12 @@ export class MethodService {
 
   fingerAlert(title: string,err: any) {
     var description;
-    switch (err.code) {
-      case -101:
+    switch (err.code + "") {
+      case "-101":
         description = "Silahkan login menggunakan email"
-      case -111:
+      case "-111":
         description = "Silahkan coba beberapa saat lagi"
-      case -112:
+      case "-112":
         description = "Terlalu banyak salah. fingerprint tidak dapat digunakan"
       default:
         description = err.code + ""
