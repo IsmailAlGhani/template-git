@@ -36,6 +36,7 @@ export class MethodService {
       case -112:
         description = "Terlalu banyak salah. fingerprint tidak dapat digunakan"
       default:
+        description = err.code + ""
     }
     if (description) {
       this.presentAlert(title, description);
