@@ -127,14 +127,22 @@ export class LoginPage implements OnInit {
             localStorage.setItem('Token', callback.access_token);
             localStorage.setItem('refToken', callback.refresh_token);
             console.log(JSON.stringify(callback, null, 2));
-            this.methodService.presentAlert("Success","Successfully Authenticated!");
-      
+            
             this.methodService.getUrlApi(apiProfile, localStorage.getItem('Token'), (result) => {
               if (result != 'Error') {
+                var userId = localStorage.getItem("userId");
                 console.log(JSON.stringify(result, null, 2));
-                localStorage.setItem('User', JSON.stringify(result, null, 2));
-                this.menuController.enable(true);
-                this.navController.navigateRoot('profile');
+                
+                if (userId == (result.employee.employeeId)) {
+                  this.methodService.presentAlert("Success","Successfully Authenticated!");
+                  localStorage.setItem('User', JSON.stringify(result, null, 2));
+                  this.menuController.enable(true);
+                  this.navController.navigateRoot('profile');
+                } else {
+                  this.methodService.presentAlert("Alert", "Silahkan login menggunakan email");
+                  localStorage.removeItem('Token');
+                  localStorage.removeItem('refToken');
+                }
               }
             })
           }

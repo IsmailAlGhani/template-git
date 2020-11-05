@@ -26,4 +26,8 @@
   </ion-grid>
   <app-auth-finger-face *ngIf="fingerAvailable"></app-auth-finger-face>
   <app-camera></app-camera>
+  <ion-button (click)="loadMap()">
+    <ion-icon slot="icon-only" name="refresh"></ion-icon>
+  </ion-button>
+  <app-google-maps></app-google-maps>
 </ion-content>

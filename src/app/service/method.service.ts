@@ -27,8 +27,9 @@ export class MethodService {
   }
 
   fingerAlert(title: string,err: any) {
-    var description;
-    switch (err.code + "") {
+    var description = err.code + "";
+    const errorCode = err.code + ""
+    switch (errorCode) {
       case "-101":
         description = "Silahkan login menggunakan email"
       case "-111":
@@ -36,11 +37,8 @@ export class MethodService {
       case "-112":
         description = "Terlalu banyak salah. fingerprint tidak dapat digunakan"
       default:
-        description = err.code + ""
     }
-    if (description) {
-      this.presentAlert(title, description);
-    }
+    this.presentAlert(title, description);
   }
 
   postUrlApi(urlApi, token, callback, params?) {
@@ -55,9 +53,10 @@ export class MethodService {
           callback(data);
         }, err => {
           var info;
+          const status = err.status + ""
           switch (err.status) {
             case 400:
-              localStorage.setItem('fingerRegist', 'false');
+              //localStorage.setItem('fingerRegist', 'false');
               info = "Silahkan login menggunakan email";
             default:
               info = err.error.error_description;

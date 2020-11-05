@@ -1,5 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
+import { GoogleMapsComponent } from 'src/app/components/google-maps/google-maps.component';
 
 @Component({
   selector: 'app-profile',
@@ -12,6 +13,8 @@ export class ProfilePage implements OnInit, OnDestroy {
   company: string;
   fingerAvailable: boolean;
   
+  @ViewChild(GoogleMapsComponent) mapComponent: GoogleMapsComponent
+
   constructor(private fingerAuth: FingerprintAIO) {
     this.user = JSON.parse(localStorage.getItem('User'));
     for (const key in this.user) {
@@ -32,6 +35,10 @@ export class ProfilePage implements OnInit, OnDestroy {
     }).catch(() => {
       this.fingerAvailable = false;
     })
+  }
+
+  loadMap(){
+    this.mapComponent.loadMap();
   }
 
   ngOnDestroy() {}

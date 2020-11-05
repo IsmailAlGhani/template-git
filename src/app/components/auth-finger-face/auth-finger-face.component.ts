@@ -23,6 +23,12 @@ export class AuthFingerFaceComponent implements OnInit {
     } else {
       this.method.presentAlert("Success","Biometric Activate!");
       localStorage.setItem("fingerRegist","true");
+      const user = JSON.parse(localStorage.getItem('User'));
+      for (const key in user) {
+        if (key == 'employee') {
+          localStorage.setItem("userId",user[key].employeeId + "");
+        }
+      }
     }
   }
   

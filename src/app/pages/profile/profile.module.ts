@@ -10,6 +10,7 @@ import { ProfilePage } from './profile.page';
 import { CameraComponent } from 'src/app/components/camera/camera.component';
 import { CapGeolocComponent } from 'src/app/components/cap-geoloc/cap-geoloc.component';
 import { AuthFingerFaceComponent } from 'src/app/components/auth-finger-face/auth-finger-face.component';
+import { GoogleMapsComponent } from 'src/app/components/google-maps/google-maps.component';
 
 @NgModule({
   imports: [
@@ -18,6 +19,6 @@ import { AuthFingerFaceComponent } from 'src/app/components/auth-finger-face/aut
     IonicModule,
     ProfilePageRoutingModule
   ],
-  declarations: [ProfilePage, CameraComponent, CapGeolocComponent, AuthFingerFaceComponent]
+  declarations: [ProfilePage, CameraComponent, CapGeolocComponent, AuthFingerFaceComponent, GoogleMapsComponent]
 })
 export class ProfilePageModule {}
