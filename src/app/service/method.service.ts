@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
+import { Plugins } from '@capacitor/core';
+
+const { Modals, Toast } = Plugins;
 
 @Injectable({
   providedIn: 'root'
@@ -12,18 +15,50 @@ export class MethodService {
 
   constructor(
     private http: HttpClient,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private toastCtrl: ToastController
   ) {}
 
-  async presentAlert(title: string,info: string) {
-    const alert = await this.alertCtrl.create({
-      header: 'Alert',
-      subHeader: title,
+  async successInfo(info: string) {
+    // const refSuccess = await Toast.show({
+    //   text: info,
+    //   duration: "short",
+    //   position: "top"
+    // })
+    // await refSuccess;
+    
+    const toast = await this.toastCtrl.create({
       message: info,
-      buttons: ['OK']
+      color: "success",
+      duration: 2000
     });
+    toast.present();
   
-    await alert.present();
+  }
+
+  async presentAlert(title: string,info: string) {
+    // const refAlert = await Modals.alert({
+    //   title: title,
+    //   message: info,
+    //   buttonTitle: 'OK'
+    // });
+    // await refAlert;
+
+    // const alert = await this.alertCtrl.create({
+    //   header: 'Alert',
+    //   subHeader: title,
+    //   message: info,
+    //   buttons: ['OK']
+    // });
+    // await alert.present();
+
+    const toast = await this.toastCtrl.create({
+      header: title,
+      message: info,
+      color: "danger",
+      duration: 3500
+    });
+    toast.present();
   }
 
   fingerAlert(title: string,err: any) {

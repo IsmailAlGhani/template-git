@@ -51,12 +51,9 @@ export class LoginPage implements OnInit {
   
         this.methodService.getUrlApi(apiProfile, localStorage.getItem('Token'), (result) => {
           if (result != 'Error') {
+            this.methodService.successInfo("Welcome, " + result.employee.name);
             console.log(result);
             localStorage.setItem('User', JSON.stringify(result, null, 2));
-            // for (var i = 0; i < localStorage.length; i++) {
-            //   console.log(JSON.stringify(localStorage.key(i)),null,2);
-            //   console.log(JSON.stringify(localStorage.getItem(localStorage.key(i)),null,2));
-            // }
             this.menuController.enable(true);
             this.navController.navigateRoot('profile');
           } 
@@ -66,47 +63,47 @@ export class LoginPage implements OnInit {
     this.params);
   }
 
-  showFingerprintLoad() {
-    const urlApi = "oauth/token";
-    const apiProfile = "api/user/profile";
-    const ref_token = localStorage.getItem('refToken');
-    this.params = this.params.set("grant_type", "refresh_token").set("refresh_token", ref_token);
+  // showFingerprintLoad() {
+  //   const urlApi = "oauth/token";
+  //   const apiProfile = "api/user/profile";
+  //   const ref_token = localStorage.getItem('refToken');
+  //   this.params = this.params.set("grant_type", "refresh_token").set("refresh_token", ref_token);
     
-    this.fingerAuth.isAvailable().then((result) => {
-      this.fingerAuth.loadBiometricSecret({
-        description: "Biometric Authentication",
-        cancelButtonTitle: 'Cancel',
-        disableBackup: true,
-      }).then((secret) => {
-        console.log(JSON.stringify(secret, null, 2));
+  //   this.fingerAuth.isAvailable().then((result) => {
+  //     this.fingerAuth.loadBiometricSecret({
+  //       description: "Biometric Authentication",
+  //       cancelButtonTitle: 'Cancel',
+  //       disableBackup: true,
+  //     }).then((secret) => {
+  //       console.log(JSON.stringify(secret, null, 2));
 
-        this.methodService.postUrlApi(urlApi, localStorage.getItem('Token'), (callback) => {
-          if (callback != 'Error') {
-            localStorage.setItem('Token', callback.access_token);
-            localStorage.setItem('refToken', callback.refresh_token);
-            console.log(JSON.stringify(callback, null, 2));
-            this.methodService.presentAlert("Success","Successfully Authenticated!");
+  //       this.methodService.postUrlApi(urlApi, localStorage.getItem('Token'), (callback) => {
+  //         if (callback != 'Error') {
+  //           localStorage.setItem('Token', callback.access_token);
+  //           localStorage.setItem('refToken', callback.refresh_token);
+  //           console.log(JSON.stringify(callback, null, 2));
+  //           this.methodService.successInfo("Successfully Authenticated!");
       
-            this.methodService.getUrlApi(apiProfile, localStorage.getItem('Token'), (result) => {
-              if (result != 'Error') {
-                console.log(JSON.stringify(result, null, 2));
-                localStorage.setItem('User', JSON.stringify(result, null, 2));
-                this.menuController.enable(true);
-                this.navController.navigateRoot('profile');
-              }
-            })
-          }
-        }, 
-        this.params);
-      }).catch((error) => {
-        console.log(JSON.stringify(error, null, 2));
-        this.methodService.fingerAlert("Alert", error);
-      })
-    }).catch((err) => {
-      console.log(JSON.stringify(err, null, 2));
-      this.methodService.fingerAlert("Alert", err);
-    });
-  }
+  //           this.methodService.getUrlApi(apiProfile, localStorage.getItem('Token'), (result) => {
+  //             if (result != 'Error') {
+  //               console.log(JSON.stringify(result, null, 2));
+  //               localStorage.setItem('User', JSON.stringify(result, null, 2));
+  //               this.menuController.enable(true);
+  //               this.navController.navigateRoot('profile');
+  //             }
+  //           })
+  //         }
+  //       }, 
+  //       this.params);
+  //     }).catch((error) => {
+  //       console.log(JSON.stringify(error, null, 2));
+  //       this.methodService.fingerAlert("Alert", error);
+  //     })
+  //   }).catch((err) => {
+  //     console.log(JSON.stringify(err, null, 2));
+  //     this.methodService.fingerAlert("Alert", err);
+  //   });
+  // }
 
   showFingerprintAuthentication() {
     const urlApi = "oauth/token";
@@ -134,7 +131,7 @@ export class LoginPage implements OnInit {
                 console.log(JSON.stringify(result, null, 2));
                 
                 if (userId == (result.employee.employeeId)) {
-                  this.methodService.presentAlert("Success","Successfully Authenticated!");
+                  this.methodService.successInfo("Successfully Authenticated, " + result.employee.name);
                   localStorage.setItem('User', JSON.stringify(result, null, 2));
                   this.menuController.enable(true);
                   this.navController.navigateRoot('profile');

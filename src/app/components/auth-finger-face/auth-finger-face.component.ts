@@ -21,7 +21,7 @@ export class AuthFingerFaceComponent implements OnInit {
     if (localStorage.getItem("fingerRegist") == "true") {
       this.method.presentAlert("Alert","You have registered");
     } else {
-      this.method.presentAlert("Success","Biometric Activate!");
+      this.method.successInfo("Biometric Activate!");
       localStorage.setItem("fingerRegist","true");
       const user = JSON.parse(localStorage.getItem('User'));
       for (const key in user) {
@@ -47,7 +47,7 @@ export class AuthFingerFaceComponent implements OnInit {
       })
         .then((result: any) => {
           console.log(JSON.stringify(result, null, 2));
-          this.method.presentAlert("Success","Successfully Authenticated! " + result);
+          this.method.successInfo("Successfully Authenticated!");
         })
         .catch((error: any) => {
           console.log(JSON.stringify(error, null, 2));
@@ -60,41 +60,41 @@ export class AuthFingerFaceComponent implements OnInit {
       });
   }
 
-  showFingerprintRegister() {
-    var employeeID;
-    const user = JSON.parse(localStorage.getItem('User'));
-    for (const key in user) {
-      if (key == 'employee') {
-        employeeID = user[key].employeeId;
-      }
-    }
+  // showFingerprintRegister() {
+  //   var employeeID;
+  //   const user = JSON.parse(localStorage.getItem('User'));
+  //   for (const key in user) {
+  //     if (key == 'employee') {
+  //       employeeID = user[key].employeeId;
+  //     }
+  //   }
 
-    if (localStorage.getItem("fingerRegist") == "true") {
-      this.method.presentAlert("Alert","You have registered");
-    } else {
-      this.fingerAuth.isAvailable().then((result) => {
-        this.fingerAuth.registerBiometricSecret({
-          description: "Register Biometric",
-          secret: employeeID,
-          cancelButtonTitle: 'Cancel',
-          invalidateOnEnrollment: true,
-          disableBackup: true,
-        }).then((success) => {
-          console.log(JSON.stringify(success, null, 2));
-          this.method.presentAlert("Success","Successfully Register! " + success);
-          localStorage.setItem("fingerRegist","true");
-          // for (var i = 0; i < localStorage.length; i++) {
-          //   console.log(JSON.stringify(localStorage.key(i)),null,2);
-          //   console.log(JSON.stringify(localStorage.getItem(localStorage.key(i)),null,2));
-          // }
-        }).catch((error) => {
-          console.log(JSON.stringify(error, null, 2));
-          this.method.fingerAlert("Alert", error);
-        })
-      }).catch((err) => {
-        console.log(JSON.stringify(err, null, 2));
-        this.method.fingerAlert("Alert",err);
-      });
-    }
-  }
+  //   if (localStorage.getItem("fingerRegist") == "true") {
+  //     this.method.presentAlert("Alert","You have registered");
+  //   } else {
+  //     this.fingerAuth.isAvailable().then((result) => {
+  //       this.fingerAuth.registerBiometricSecret({
+  //         description: "Register Biometric",
+  //         secret: employeeID,
+  //         cancelButtonTitle: 'Cancel',
+  //         invalidateOnEnrollment: true,
+  //         disableBackup: true,
+  //       }).then((success) => {
+  //         console.log(JSON.stringify(success, null, 2));
+  //         this.method.successInfo("Successfully Register! " + success);
+  //         localStorage.setItem("fingerRegist","true");
+  //         // for (var i = 0; i < localStorage.length; i++) {
+  //         //   console.log(JSON.stringify(localStorage.key(i)),null,2);
+  //         //   console.log(JSON.stringify(localStorage.getItem(localStorage.key(i)),null,2));
+  //         // }
+  //       }).catch((error) => {
+  //         console.log(JSON.stringify(error, null, 2));
+  //         this.method.fingerAlert("Alert", error);
+  //       })
+  //     }).catch((err) => {
+  //       console.log(JSON.stringify(err, null, 2));
+  //       this.method.fingerAlert("Alert",err);
+  //     });
+  //   }
+  // }
 }
