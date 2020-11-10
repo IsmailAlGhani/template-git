@@ -26,9 +26,9 @@
   </ion-grid>
 
   <ion-item lines="none">
-  <ion-icon slot="start" name="moon"></ion-icon>
-  <ion-label>Dark Mode</ion-label>
-  <ion-toggle slot="end" [(ngModel)]="dark" (ionChange)="changeColor()"></ion-toggle>
+    <ion-icon slot="start" name="moon"></ion-icon>
+    <ion-label>Dark Mode</ion-label>
+    <ion-toggle slot="end" [(ngModel)]="dark" (ionChange)="changeColor()"></ion-toggle>
   </ion-item>
 
   <app-auth-finger-face *ngIf="fingerAvailable"></app-auth-finger-face>
