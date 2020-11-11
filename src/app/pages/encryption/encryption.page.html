@@ -1,0 +1,46 @@
+<ion-header>  
+  <ion-toolbar color="primary">  
+    <ion-buttons slot="start">  
+      <ion-menu-button color="secondary"></ion-menu-button>   
+    </ion-buttons>  
+    <ion-title>  
+      Encryption
+    </ion-title>  
+  </ion-toolbar>   
+</ion-header> 
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Encrypt</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">Plain Text</ion-label>
+        <ion-input type="text" name="textToEncrypt" [(ngModel)]="formEncrypt.textToEncrypt"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Encrypted Text</ion-label>
+        <ion-input type="text" name="textEncrypted" [(ngModel)]="formEncrypt.textEncrypted" disabled></ion-input>
+      </ion-item>
+      <ion-button type="submit" expand="block" (click)="doEncrypt(formEncrypt.textToEncrypt)">Encrypt</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Decrypt</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">Plain Text</ion-label>
+        <ion-input type="text" [(ngModel)]="formDecrypt.textToDecrypt"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Encrypted Text</ion-label>
+        <ion-input type="text" [(ngModel)]="formDecrypt.textDecrypted" disabled></ion-input>
+      </ion-item>
+      <ion-button type="submit" expand="block" (click)="doDecrypt(formDecrypt.textToDecrypt)">Decrypt</ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

@@ -19,6 +19,11 @@ export class AppComponent {
       icon: 'person'
     },
     {
+      title: 'Crypto JS',
+      url: 'encryption',
+      icon: 'document-lock'
+    },
+    {
       title: 'Self Services',
       url: 'selfservice',
       icon: 'create'

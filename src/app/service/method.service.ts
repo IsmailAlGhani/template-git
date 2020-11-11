@@ -3,6 +3,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { AlertController, ToastController } from '@ionic/angular';
 import { Plugins } from '@capacitor/core';
+import * as CryptoJS from 'crypto-js';
 
 const { Modals, Toast } = Plugins;
 
@@ -12,6 +13,7 @@ const { Modals, Toast } = Plugins;
 export class MethodService {
   basicUrl: string = environment.apiUrl;
   private headers: HttpHeaders = new HttpHeaders();
+  secureKey: string = '1234567890987654';
 
   constructor(
     private http: HttpClient,
@@ -169,5 +171,15 @@ export class MethodService {
         }
       );
     }
+  }
+
+  encrypt(plainText: string) {
+    var encryptedStr = CryptoJS.AES.encrypt(plainText, this.secureKey.trim()).toString();
+    return encryptedStr;
+  }
+
+  decrypt(encryptedText: string) {
+    var decryptedStr = CryptoJS.AES.decrypt(encryptedText, this.secureKey.trim()).toString(CryptoJS.enc.Utf8);
+    return decryptedStr;
   }
 }

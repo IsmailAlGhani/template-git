@@ -19,6 +19,10 @@ const routes: Routes = [
     //canActivate: ['AuthGuard'],
     loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule)
   },
+  {
+    path: 'encryption',
+    loadChildren: () => import('./pages/encryption/encryption.module').then( m => m.EncryptionPageModule)
+  },
 ];
 
 @NgModule({
