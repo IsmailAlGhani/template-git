@@ -24,6 +24,11 @@ export class AppComponent {
       icon: 'document-lock'
     },
     {
+      title: 'Local Notification',
+      url: 'notification',
+      icon: 'notification'
+    },
+    {
       title: 'Self Services',
       url: 'selfservice',
       icon: 'create'

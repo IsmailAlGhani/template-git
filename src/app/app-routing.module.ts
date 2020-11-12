@@ -23,6 +23,10 @@ const routes: Routes = [
     path: 'encryption',
     loadChildren: () => import('./pages/encryption/encryption.module').then( m => m.EncryptionPageModule)
   },
+  {
+    path: 'notification',
+    loadChildren: () => import('./pages/notification/notification.module').then( m => m.NotificationPageModule)
+  },
 ];
 
 @NgModule({
